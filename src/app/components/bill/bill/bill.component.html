@@ -1,0 +1,71 @@
+<div class="example-container mat-elevation-z8">
+    <h2>Facturas</h2>
+    <div class="example-loading-shade" *ngIf="isLoadingResults">
+        <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
+    </div>
+    <div class="button-row">
+        <a mat-flat-button color="primary" [routerLink]="['add-facturas']">
+            <mat-icon>add</mat-icon> Factura</a>
+        <a mat-flat-button color="accent" [routerLink]="['/cases-stat']">
+            <mat-icon>bar_chart</mat-icon> Statistic</a><br>
+
+        <mat-form-field>
+            <input matInput [matDatepicker]="picker1" placeholder="Fecha / Hora" [(ngModel)]="pickerDate">
+        </mat-form-field>
+        <mat-datepicker-toggle matSuffix [for]="picker1">
+            <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+        </mat-datepicker-toggle>
+        <mat-datepicker #picker1></mat-datepicker>
+
+        <mat-form-field>
+            <input matInput [matDatepicker]="picker2" placeholder="Fecha / Hora" [(ngModel)]="pickerDate2">
+        </mat-form-field>
+        <mat-datepicker-toggle matSuffix [for]="picker2">
+            <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+        </mat-datepicker-toggle>
+        <mat-datepicker #picker2></mat-datepicker>
+
+        <button mat-flat-button color="primary" class="margin" (click)="onSearch()"> Calcular</button>
+        <button mat-flat-button color="primary" class="margin" (click)="seeBill()"> Remover Filtro</button>
+
+        <h2 style="float: right;"><strong>Utilidad:</strong> {{utility}}</h2>
+    </div>
+    <div class="mat-elevation-z8">
+        <table mat-table [dataSource]="data" class="example-container" matSort matSortActive="name" matSortDisableClear matSortDirection="asc">
+
+            <!-- Cases Name Column -->
+            <ng-container matColumnDef="account">
+                <th mat-header-cell *matHeaderCellDef> Cuenta</th>
+                <td mat-cell *matCellDef="let row">{{row.cuenta.cuenta}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="client">
+                <th mat-header-cell *matHeaderCellDef> Cliente</th>
+                <td mat-cell *matCellDef="let row">{{row.cliente.nombre}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="valor">
+                <th mat-header-cell *matHeaderCellDef> Valor</th>
+                <td mat-cell *matCellDef="let row">${{row.valor}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="creacion">
+                <th mat-header-cell *matHeaderCellDef> F. Creacion</th>
+                <td mat-cell *matCellDef="let row">{{row.creacion | date}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="vencimiento">
+                <th mat-header-cell *matHeaderCellDef> Vencimiento</th>
+                <td mat-cell *matCellDef="let row" [ngClass]="vencimiento(row.vencimiento,row.creacion) <= 3 ? 'red' : vencimiento(row.vencimiento,row.creacion) <= 5 ? 'yellow':''">{{row.vencimiento | date}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="pago">
+                <th mat-header-cell *matHeaderCellDef> Pago</th>
+                <td mat-cell *matCellDef="let row"> {{row.pago}}</td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: displayedColumns;" [routerLink]="['/cases-details/', row._id]"></tr>
+        </table>
+    </div>
+</div>

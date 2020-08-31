@@ -1,0 +1,81 @@
+<div class="example-container mat-elevation-z8">
+    <h2>Añadir Cuenta</h2>
+    <div class="example-loading-shade" *ngIf="isLoadingResults">
+        <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
+    </div>
+    <div class="button-row">
+        <a mat-flat-button color="primary" [routerLink]="['/cases']">
+            <mat-icon>list</mat-icon>
+        </a>
+    </div>
+    <mat-card class="example-card">
+        <form [formGroup]="accountForm" (ngSubmit)="onFormSubmit()">
+            <mat-form-field class="example-full-width">
+                <mat-label>Cuenta</mat-label>
+                <input matInput placeholder="Cuenta" formControlName="cuenta" [errorStateMatcher]="matcher">
+                <mat-error>
+                    <span *ngIf="!accountForm.get('cuenta').valid && accountForm.get('cuenta').touched">Please enter Cuenta</span>
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field class="example-full-width">
+                <mat-label>Contraseña</mat-label>
+                <input matInput placeholder="Contraseña" formControlName="contrasenia" [errorStateMatcher]="matcher">
+                <mat-error>
+                    <span *ngIf="!accountForm.get('contrasenia').valid && accountForm.get('contrasenia').touched">Please enter Contraseña</span>
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field class="example-full-width">
+                <mat-label>Pin</mat-label>
+                <input matInput placeholder="pin" formControlName="pin" [errorStateMatcher]="matcher">
+                <mat-error>
+                    <span *ngIf="!accountForm.get('pin').valid && accountForm.get('pin').touched">Please enter pin</span>
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field class="example-full-width">
+                <mat-label>Servicio</mat-label>
+                <mat-select formControlName="services" [errorStateMatcher]="matcher">
+                    <mat-option *ngFor="let service of service" [value]="service">
+                        {{service.nombre}}
+                    </mat-option>
+                </mat-select>
+                <mat-error>
+                    <span *ngIf="!accountForm.get('services').valid && accountForm.get('services').touched">Please enter Cuenta</span>
+                </mat-error>
+            </mat-form-field>
+            <!--<mat-form-field class="example-full-width">
+                <mat-label>Creacion</mat-label>
+                <input matInput placeholder="Creacion" formControlName="creacion" [errorStateMatcher]="matcher">
+                <mat-error>
+                    <span *ngIf="!accountForm.get('creacion').valid && accountForm.get('creacion').touched">Please enter creat_at</span>
+                </mat-error>
+            </mat-form-field>-->
+            <mat-form-field class="example-full-width">
+                <mat-label>Creacion</mat-label>
+                <input matInput [matDatepicker]="picker" formControlName="creacion" [errorStateMatcher]="matcher">
+                <mat-error>
+                    <span *ngIf="!accountForm.get('creacion').valid && accountForm.get('creacion').touched">Please enter creat_at</span>
+                </mat-error>
+                <mat-datepicker-toggle matSuffix [for]="picker">
+                    <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+                </mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+
+            </mat-form-field>
+            <mat-form-field class="example-full-width">
+                <mat-label>Vencimiento</mat-label>
+                <input matInput [matDatepicker]="picker1" formControlName="vencimiento" [errorStateMatcher]="matcher">
+                <mat-error>
+                    <span *ngIf="!accountForm.get('vencimiento').valid && accountForm.get('vencimiento').touched">Please enter vencimiento</span>
+                </mat-error>
+                <mat-datepicker-toggle matSuffix [for]="picker1">
+                    <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+                </mat-datepicker-toggle>
+                <mat-datepicker #picker1></mat-datepicker>
+            </mat-form-field>
+
+            <div class="button-row">
+                <button type="submit" [disabled]="!accountForm.valid" mat-flat-button color="primary"><mat-icon>save</mat-icon></button>
+            </div>
+        </form>
+    </mat-card>
+</div>

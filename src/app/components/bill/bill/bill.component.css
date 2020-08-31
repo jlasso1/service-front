@@ -1,0 +1,23 @@
+/* Structure */
+
+.example-container {
+    position: relative;
+    padding: 5px;
+}
+
+table.mat-table {
+    border-spacing: 0;
+    width: -webkit-fill-available;
+}
+
+.margin {
+    margin-left: 4px;
+}
+
+.red {
+    color: red;
+}
+
+.yellow {
+    color: yellow;
+}

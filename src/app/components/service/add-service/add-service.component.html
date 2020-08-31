@@ -1,0 +1,32 @@
+<div class="example-container mat-elevation-z8">
+    <h2>Añadir Servicio</h2>
+    <div class="example-loading-shade" *ngIf="isLoadingResults">
+        <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
+    </div>
+    <div class="button-row">
+        <a mat-flat-button color="primary" [routerLink]="['/cases']">
+            <mat-icon>list</mat-icon>
+        </a>
+    </div>
+    <mat-card class="example-card">
+        <form [formGroup]="serviceFrom" (ngSubmit)="onFormSubmit()">
+            <mat-form-field class="example-full-width">
+                <mat-label>Costo</mat-label>
+                <input matInput placeholder="Costo" formControlName="costo" [errorStateMatcher]="matcher">
+                <mat-error>
+                    <span *ngIf="!serviceFrom.get('costo').valid && serviceFrom.get('costo').touched">Please enter Name</span>
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field class="example-full-width">
+                <mat-label>Nombre</mat-label>
+                <input matInput placeholder="Nombre" formControlName="nombre" [errorStateMatcher]="matcher">
+                <mat-error>
+                    <span *ngIf="!serviceFrom.get('nombre').valid && serviceFrom.get('nombre').touched">Please enter Phone</span>
+                </mat-error>
+            </mat-form-field>
+            <div class="button-row">
+                <button type="submit" [disabled]="!serviceFrom.valid" mat-flat-button color="primary"><mat-icon>save</mat-icon></button>
+            </div>
+        </form>
+    </mat-card>
+</div>

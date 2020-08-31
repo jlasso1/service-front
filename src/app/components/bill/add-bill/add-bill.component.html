@@ -1,0 +1,80 @@
+<div class="example-container mat-elevation-z8">
+    <h2>Añadir Factura</h2>
+    <div class="example-loading-shade" *ngIf="isLoadingResults">
+        <mat-spinner *ngIf="isLoadingResults"></mat-spinner>
+    </div>
+    <div class="button-row">
+        <a mat-flat-button color="primary" [routerLink]="['/cases']">
+            <mat-icon>list</mat-icon>
+        </a>
+    </div>
+    <mat-card class="example-card">
+        <form [formGroup]="billForm" (ngSubmit)="onFormSubmit()">
+            <mat-form-field class="example-full-width">
+                <mat-label>Cliente</mat-label>
+                <mat-select formControlName="cliente" [errorStateMatcher]="matcher">
+                    <mat-option *ngFor="let cliente of clients" [value]="cliente">
+                        {{cliente.nombre}}
+                    </mat-option>
+                </mat-select>
+                <mat-error>
+                    <span *ngIf="!billForm.get('cliente').valid && billForm.get('cliente').touched">Please enter Cuenta</span>
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field class="example-full-width">
+                <mat-label>Cuenta</mat-label>
+                <mat-select formControlName="cuenta" [errorStateMatcher]="matcher">
+                    <mat-option *ngFor="let cuenta of cuentas" [value]="cuenta">
+                        {{cuenta.cuenta}}
+                    </mat-option>
+                </mat-select>
+                <mat-error>
+                    <span *ngIf="!billForm.get('cuenta').valid && billForm.get('cuenta').touched">Please enter Cuenta</span>
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field class="example-full-width">
+                <mat-label>Valor</mat-label>
+                <input matInput placeholder="valor" formControlName="valor" [errorStateMatcher]="matcher">
+                <mat-error>
+                    <span *ngIf="!billForm.get('valor').valid && billForm.get('valor').touched">Please enter valor</span>
+                </mat-error>
+            </mat-form-field>
+            <mat-form-field class="example-full-width">
+                <mat-label>Creacion</mat-label>
+                <input matInput [matDatepicker]="picker" formControlName="creacion" [errorStateMatcher]="matcher">
+                <mat-error>
+                    <span *ngIf="!billForm.get('creacion').valid && billForm.get('creacion').touched">Please enter creat_at</span>
+                </mat-error>
+                <mat-datepicker-toggle matSuffix [for]="picker">
+                    <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+                </mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+            <mat-form-field class="example-full-width">
+                <mat-label>Vencimiento</mat-label>
+                <input matInput [matDatepicker]="picker1" formControlName="vencimiento" [errorStateMatcher]="matcher">
+                <mat-error>
+                    <span *ngIf="!billForm.get('vencimiento').valid && billForm.get('vencimiento').touched">Please enter vencimiento</span>
+                </mat-error>
+                <mat-datepicker-toggle matSuffix [for]="picker1">
+                    <mat-icon matDatepickerToggleIcon>keyboard_arrow_down</mat-icon>
+                </mat-datepicker-toggle>
+                <mat-datepicker #picker1></mat-datepicker>
+            </mat-form-field>
+            <mat-form-field class="example-full-width">
+                <mat-label>Pago</mat-label>
+                <mat-select formControlName="pago" [errorStateMatcher]="matcher">
+                    <mat-option value="SI">SI</mat-option>
+                    <mat-option value="NO">NO</mat-option>
+                </mat-select>
+                <mat-error>
+                    <span *ngIf="!billForm.get('pago').valid && billForm.get('pago').touched">Please enter pago</span>
+                </mat-error>
+            </mat-form-field>
+
+            <div class="button-row">
+                <button type="submit" [disabled]="!billForm.valid" mat-flat-button color="primary"><mat-icon>save</mat-icon></button>
+            </div>
+        </form>
+    </mat-card>
+</div>
